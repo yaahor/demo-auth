@@ -1,5 +1,5 @@
-import { HttpEvent, HttpHandler, HttpHandlerFn, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { HttpEvent, HttpHandlerFn, HttpRequest } from '@angular/common/http';
+import { inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
@@ -12,6 +12,8 @@ export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn):
         Authorization: `Bearer ${authToken}`,
       },
     });
+
+    return next(clonedRequest);
   }
 
   return next(req);

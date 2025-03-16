@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { environment } from '../environments/environment';
 
 @Injectable({
@@ -11,8 +11,14 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post<any>(this.apiUrl, { username, password });
+  login(username: string, password: string): Observable<void> {
+    return this.http.post<{ access_token: string }>(this.apiUrl, { username, password })
+      .pipe(
+        tap((res) => {
+          this.setToken(res.access_token);
+        }),
+        map(() => void 0),
+      );
   }
 
   logout() {
