@@ -1,3 +1,11 @@
-:host {
+.app-login, :host {
   display: block;
+}
+
+.app-login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 300px;
+  margin: 0 auto;
 }

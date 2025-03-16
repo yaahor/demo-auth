@@ -1,1 +1,6 @@
-<p>login works!</p>
+<form class="app-login__form" [formGroup]="formGroup">
+  <input type="text" pInputText formControlName="username" placeholder="Username"/>
+  <input type="password" pInputText formControlName="password" placeholder="Password"/>
+
+  <button type="button" pButton pButtonLabel="Login">Label</button>
+</form>
