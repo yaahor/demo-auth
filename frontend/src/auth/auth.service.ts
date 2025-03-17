@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, startWith, Subject, tap } from 'rxjs';
 import { environment } from '../environments/environment';
 
 @Injectable({
@@ -8,6 +8,13 @@ import { environment } from '../environments/environment';
 })
 export class AuthService {
   private apiUrl = `${environment.apiUrl}/login`;
+  private statusChange = new Subject<void>();
+
+  private isLoggedIn$ = this.statusChange
+    .pipe(
+      map(() => this.isLoggedIn()),
+      startWith(this.isLoggedIn())
+    );
 
   constructor(private http: HttpClient) {}
 
@@ -23,6 +30,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('access_token');
+    this.statusChange.next();
   }
 
   isLoggedIn(): boolean {
@@ -35,5 +43,10 @@ export class AuthService {
 
   setToken(token: string) {
     localStorage.setItem('access_token', token);
+    this.statusChange.next();
+  }
+
+  observeLoggedIn(): Observable<boolean> {
+    return this.isLoggedIn$;
   }
 }
