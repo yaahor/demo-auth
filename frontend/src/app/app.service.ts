@@ -23,6 +23,6 @@ export class AppService {
   }
 
   logout(): void {
-    this.authService.logout();
+    this.authService.clearToken();
   }
 }

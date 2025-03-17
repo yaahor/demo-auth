@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { map, Observable, startWith, Subject, tap } from 'rxjs';
 import { environment } from '../environments/environment';
 
@@ -16,7 +17,7 @@ export class AuthService {
       startWith(this.isLoggedIn())
     );
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private readonly router: Router) {}
 
   login(username: string, password: string): Observable<void> {
     return this.http.post<{ access_token: string }>(this.apiUrl, { username, password })
@@ -28,9 +29,10 @@ export class AuthService {
       );
   }
 
-  logout() {
+  clearToken() {
     localStorage.removeItem('access_token');
     this.statusChange.next();
+    this.router.navigate(['/login']).then();
   }
 
   isLoggedIn(): boolean {

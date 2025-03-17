@@ -1,20 +1,27 @@
-import { HttpEvent, HttpHandlerFn, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 
 export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
-  const authToken = inject(AuthService).getToken();
+  const authService = inject(AuthService);
+  const authToken = authService.getToken();
 
   if (authToken) {
-    const clonedRequest = req.clone({
+    req = req.clone({
       setHeaders: {
         Authorization: `Bearer ${authToken}`,
       },
     });
-
-    return next(clonedRequest);
   }
 
-  return next(req);
+  return next(req).pipe(
+    catchError((error: HttpErrorResponse) => {
+      if (error.status === 401) {
+        // Remove the invalid token
+        authService.clearToken();
+      }
+      return throwError(() => error);
+    }),
+  );
 }
