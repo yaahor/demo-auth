@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../features/auth/auth.service';
 import { UserRole } from '../enitities/user/model/user-role';
 import { AppVo } from './app.vo';
 

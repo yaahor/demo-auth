@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, startWith } from 'rxjs';
 import { UserListDto } from '@shared/user-list.dto';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 import { mapDtoToUserListSuccessVo } from './map-dto-to-user-list-success-vo';
 import { UserListVo } from './user-list.vo';
 
