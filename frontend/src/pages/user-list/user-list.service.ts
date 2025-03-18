@@ -34,6 +34,6 @@ export class UserListService {
   }
 
   editUser(user: UserUpdateModel): Observable<void> {
-    return this.userService.editUser(user);
+    return this.userService.editUser(user).pipe(map(() => void 0));
   }
 }

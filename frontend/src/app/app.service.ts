@@ -35,6 +35,6 @@ export class AppService {
   }
 
   createUser(user: UserCreateModel): Observable<void> {
-    return this.userService.createUser(user);
+    return this.userService.createUser(user).pipe(map(() => void 0));
   }
 }
