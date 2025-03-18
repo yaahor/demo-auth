@@ -1,9 +1,11 @@
 <p-toolbar>
   <ng-template #start></ng-template>
   <ng-template #end>
-    @if (vo()?.isLoggedIn) {
-      <!--todo for admins only-->
+    @if (vo()?.canCreateUsers) {
       <p-button label="Create user" (click)="onCreateClick()"></p-button>
+    }
+
+    @if (vo()?.canLogout) {
       <p-button label="Logout" (click)="onLogoutClick()" />
     }
   </ng-template>
@@ -11,30 +13,32 @@
 
 <router-outlet />
 
-<p-dialog
-  header="Create user"
-  [modal]="true"
-  [(visible)]="isDialogOpen"
-  [style]="{ width: '25rem' }"
-  [formGroup]="formGroup"
->
-  <div class="flex items-center gap-4 mb-4">
-    <label for="username" class="font-semibold w-24">Username</label>
-    <input pInputText id="username" class="flex-auto" autocomplete="off" formControlName="username"/>
-  </div>
+@if (vo()?.canCreateUsers) {
+  <p-dialog
+    header="Create user"
+    [modal]="true"
+    [(visible)]="isDialogOpen"
+    [style]="{ width: '25rem' }"
+    [formGroup]="formGroup"
+  >
+    <div class="flex items-center gap-4 mb-4">
+      <label for="username" class="font-semibold w-24">Username</label>
+      <input pInputText id="username" class="flex-auto" autocomplete="off" formControlName="username"/>
+    </div>
 
-  <div class="flex items-center gap-4 mb-8">
-    <label for="password" class="font-semibold w-24">Password</label>
-    <input pInputText id="password" class="flex-auto" autocomplete="off" formControlName="password"/>
-  </div>
+    <div class="flex items-center gap-4 mb-8">
+      <label for="password" class="font-semibold w-24">Password</label>
+      <input pInputText id="password" class="flex-auto" autocomplete="off" formControlName="password"/>
+    </div>
 
-  <div class="flex items-center gap-4 mb-8">
-    <label id="role" class="font-semibold w-24">Role</label>
-    <p-selectbutton [options]="vo()?.roles" aria-labelledby="basic" ariaLabelledBy="role" formControlName="role"/>
-  </div>
+    <div class="flex items-center gap-4 mb-8">
+      <label id="role" class="font-semibold w-24">Role</label>
+      <p-selectbutton [options]="vo()?.roles" aria-labelledby="basic" ariaLabelledBy="role" formControlName="role"/>
+    </div>
 
-  <div class="flex justify-end gap-2">
-    <p-button label="Cancel" severity="secondary" (click)="onCancelClick()" />
-    <p-button label="Save" [disabled]="formGroup.invalid" (click)="onSaveClick()" />
-  </div>
-</p-dialog>
+    <div class="flex justify-end gap-2">
+      <p-button label="Cancel" severity="secondary" (click)="onCancelClick()" />
+      <p-button label="Save" [disabled]="formGroup.invalid" (click)="onSaveClick()" />
+    </div>
+  </p-dialog>
+}

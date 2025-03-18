@@ -19,10 +19,14 @@ export class AppService {
   getVo(): Observable<AppVo> {
     const roles = [UserRole.ADMIN, UserRole.REGULAR];
 
-    return this.authService.observeLoggedIn()
+    return this.authService.observeCurrentUser()
       .pipe(
-        map((isLoggedIn) => {
-          return { isLoggedIn, roles };
+        map((user) => {
+          return {
+            canCreateUsers: user?.role === UserRole.ADMIN,
+            canLogout: !!user,
+            roles,
+          };
         }));
   }
 
