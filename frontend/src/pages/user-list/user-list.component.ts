@@ -6,7 +6,6 @@ import { Dialog } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
-import { UserCreateModel } from '../../enitities/user/model/user-create.model';
 import { UserListItem } from '../../enitities/user/model/user-list-item';
 import { UserRole } from '../../enitities/user/model/user-role';
 import { UserUpdateModel } from '../../enitities/user/model/user-update.model';

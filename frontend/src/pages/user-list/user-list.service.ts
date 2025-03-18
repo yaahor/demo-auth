@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, combineLatest, map, Observable, of, startWith } from 'rxjs';
+import { catchError, combineLatest, map, Observable, of } from 'rxjs';
 import { UserRole } from '../../enitities/user/model/user-role';
 import { UserUpdateModel } from '../../enitities/user/model/user-update.model';
 import { UserService } from '../../enitities/user/model/user.service';

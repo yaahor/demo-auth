@@ -4,7 +4,7 @@ import { UserCreateDto } from '@shared/user-create.dto';
 import { UserCreatedDto } from '@shared/user-created.dto';
 import { UserEditedDto } from '@shared/user-edited.dto';
 import { UserListDto } from '@shared/user-list.dto';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 const apiUrl = `${environment.apiUrl}/users`;

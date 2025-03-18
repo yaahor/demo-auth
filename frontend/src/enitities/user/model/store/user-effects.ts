@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, mergeMap, of } from 'rxjs';
+import { map, mergeMap } from 'rxjs';
 import { UserApiService } from '../../api/user-api.service';
 import { mapDtoToUserList } from '../map-dto-to-user-list';
 import { loadUsers, loadUsersSuccess } from './actions';
