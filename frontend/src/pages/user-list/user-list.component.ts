@@ -50,8 +50,6 @@ export class UserListComponent {
   protected onSaveClick(): void {
     const user = this.formGroup.value as UserUpdateModel;
 
-    console.log(user);
-
     // todo show spinner
     // todo show error
     this.userListService.editUser(user)

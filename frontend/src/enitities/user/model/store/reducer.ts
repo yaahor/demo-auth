@@ -3,11 +3,11 @@ import { UserList } from '../user-list';
 import { addUserSuccess, editUserSuccess, loadUsersSuccess } from './actions';
 
 export interface UserState {
-  userList: UserList | undefined;
+  userList: UserList;
 }
 
 const initialState: UserState = {
-  userList: undefined,
+  userList: {},
 };
 
 export const userReducer = createReducer(

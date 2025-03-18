@@ -25,7 +25,7 @@ export class UserListService {
         map(([userList, currentUser]): UserListVo => {
           return {
             canEditUsers: currentUser?.role === UserRole.ADMIN,
-            items: userList.items,
+            items: userList?.items,
             roles,
           };
         }),
