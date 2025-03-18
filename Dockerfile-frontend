@@ -1,0 +1,6 @@
+FROM node:18.19 AS build
+WORKDIR /home/node/app
+COPY ./frontend ./frontend
+COPY ./shared ./shared
+WORKDIR /home/node/app/frontend
+RUN npm ci && npm run build

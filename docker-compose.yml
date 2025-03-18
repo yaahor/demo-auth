@@ -1,0 +1,22 @@
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: Dockerfile-frontend
+    volumes:
+      - frontend-dist:/home/node/app/frontend/dist
+
+  webserver:
+    container_name: webserver
+    build:
+      context: .
+      dockerfile: Dockerfile-webserver
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - frontend-dist:/usr/share/nginx/html:ro
+
+volumes:
+  frontend-dist:
