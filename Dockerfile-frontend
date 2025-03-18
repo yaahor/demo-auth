@@ -3,4 +3,5 @@ WORKDIR /home/node/app
 COPY ./frontend ./frontend
 COPY ./shared ./shared
 WORKDIR /home/node/app/frontend
-RUN npm ci && npm run build
+RUN npm ci
+RUN npm run build
