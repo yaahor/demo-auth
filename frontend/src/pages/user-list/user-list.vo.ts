@@ -1,4 +1,7 @@
+import { UserListItem } from '../../enitities/user/model/user-list-item';
+import { UserRole } from '../../enitities/user/model/user-role';
+
 export interface UserListVo {
-  status: 'error' | 'loading' | 'success';
-  items?: { id: string; username: string; role: string; }[];
+  items?: UserListItem[];
+  roles: UserRole[];
 }

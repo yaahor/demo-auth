@@ -22,7 +22,7 @@ import { AppVo } from './app.vo';
 export class AppComponent {
   protected readonly vo: Signal<AppVo | undefined>;
   protected readonly isDialogOpen = signal<boolean>(false);
-  protected readonly destroyRef = inject(DestroyRef);
+  private readonly destroyRef = inject(DestroyRef);
 
   protected readonly formGroup = new FormGroup({
     // todo Add validation to check if the username already exists.
@@ -52,6 +52,7 @@ export class AppComponent {
     const user: UserCreateModel = this.formGroup.value as UserCreateModel;
 
     // todo show spinner
+    // todo show error
     this.appService.createUser(user)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
