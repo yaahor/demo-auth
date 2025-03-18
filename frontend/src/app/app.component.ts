@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, signal, Signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal, Signal } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -7,6 +7,7 @@ import { Dialog } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ToolbarModule } from 'primeng/toolbar';
+import { UserCreateModel } from '../enitities/user/model/user-create.model';
 import { UserRole } from '../enitities/user/model/user-role';
 import { AppService } from './app.service';
 import { AppVo } from './app.vo';
@@ -21,6 +22,7 @@ import { AppVo } from './app.vo';
 export class AppComponent {
   protected readonly vo: Signal<AppVo | undefined>;
   protected readonly isDialogOpen = signal<boolean>(false);
+  protected readonly destroyRef = inject(DestroyRef);
 
   protected readonly formGroup = new FormGroup({
     // todo Add validation to check if the username already exists.
@@ -47,8 +49,13 @@ export class AppComponent {
   }
 
   protected onSaveClick(): void {
-    const value = this.formGroup.value as { username: string, password: string, role: UserRole };
+    const user: UserCreateModel = this.formGroup.value as UserCreateModel;
 
-    console.log(value);
+    // todo show spinner
+    this.appService.createUser(user)
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+      ).
+    subscribe(() => { this.isDialogOpen.set(false); });
   }
 }

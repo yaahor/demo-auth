@@ -1,7 +1,6 @@
 import { DtoUserRole } from './dto-user-role';
 
-// todo add validation
-export class UserEditDto {
+export interface UserEditDto {
   username: string;
   password: string;
   role: DtoUserRole;
