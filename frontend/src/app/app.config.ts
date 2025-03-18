@@ -6,19 +6,19 @@ import { providePrimeNG } from 'primeng/config';
 import { authInterceptor } from '../features/auth/auth-interceptor';
 import Aura from '@primeng/themes/aura';
 import { routes } from './app.routes';
+import { provideEffects } from '@ngrx/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(
-      withInterceptors([authInterceptor]),
-    ),
+    provideHttpClient(withInterceptors([authInterceptor])),
     providePrimeNG({
-      theme: {
-        preset: Aura,
-      }
+        theme: {
+            preset: Aura,
+        }
     }),
     provideAnimationsAsync(),
-  ]
+    provideEffects()
+]
 };
