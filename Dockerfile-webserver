@@ -1,8 +1,7 @@
 FROM nginx:alpine
 
-COPY ./webserver /etc/nginx/conf.d
-RUN apk add --no-cache certbot python3 py3-pip
-RUN pip install certbot-nginx
+COPY ./webserver/conf.d /etc/nginx/conf.d
+RUN apk add --no-cache certbot certbot-nginx
 VOLUME /etc/letsencrypt
 CMD nginx && certbot \
     --nginx \
