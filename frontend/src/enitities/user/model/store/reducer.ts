@@ -15,14 +15,16 @@ export const userReducer = createReducer(
   on(loadUsersSuccess, (state, { userList }) => ({ ...state, userList })),
   on(addUserSuccess, (state, { user }) => {
     const items = state.userList?.items ?? [];
-    return { ...state, userList: { items: [...items, user] }};
+    return { ...state, userList: { items: [...items, user] } };
   }),
   on(editUserSuccess, (state, { user }) => {
     const items = state.userList?.items ?? [];
 
     return {
       ...state,
-      userList: { items: items.map(item => (item.id === user.id ? user : item)) },
+      userList: {
+        items: items.map((item) => (item.id === user.id ? user : item)),
+      },
     };
-  })
+  }),
 );

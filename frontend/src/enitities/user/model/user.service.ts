@@ -17,12 +17,10 @@ import { UserUpdateModel } from './user-update.model';
   providedIn: 'root',
 })
 export class UserService {
-
   constructor(
     private readonly userApiService: UserApiService,
     private readonly store: Store,
-  ) {
-  }
+  ) {}
 
   createUser(user: UserCreateModel): Observable<User> {
     const dto: UserCreateDto = {
@@ -31,17 +29,18 @@ export class UserService {
       role: mapUserRoleToDtoUserRole(user.role),
     };
 
-    return this.userApiService.createUser(dto)
-      .pipe(
-        map((dto) => {
-          return {
-            id: dto.id,
-            username: dto.username,
-            role: mapDtoUserRoleToUserRole(dto.role),
-          };
-        }),
-        tap((createdUser) => this.store.dispatch(addUserSuccess({ user: createdUser }))),
-      );
+    return this.userApiService.createUser(dto).pipe(
+      map((dto) => {
+        return {
+          id: dto.id,
+          username: dto.username,
+          role: mapDtoUserRoleToUserRole(dto.role),
+        };
+      }),
+      tap((createdUser) =>
+        this.store.dispatch(addUserSuccess({ user: createdUser })),
+      ),
+    );
   }
 
   editUser(user: UserUpdateModel): Observable<User> {
@@ -59,7 +58,9 @@ export class UserService {
           role: mapDtoUserRoleToUserRole(dto.role),
         };
       }),
-      tap((editedUser) => this.store.dispatch(editUserSuccess({ user: editedUser }))),
+      tap((editedUser) =>
+        this.store.dispatch(editUserSuccess({ user: editedUser })),
+      ),
     );
   }
 

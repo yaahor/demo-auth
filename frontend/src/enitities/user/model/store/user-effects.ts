@@ -16,7 +16,7 @@ export class UserEffects {
       mergeMap(() =>
         this.userApiService.getUserList().pipe(
           map(mapDtoToUserList),
-          map(userList => loadUsersSuccess({ userList })),
+          map((userList) => loadUsersSuccess({ userList })),
           // todo handle error
         ),
       ),

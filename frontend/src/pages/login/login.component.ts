@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -13,7 +18,7 @@ import { AuthService } from '../../features/auth/auth.service';
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    class: 'app-login'
+    class: 'app-login',
   },
 })
 export class LoginComponent {
@@ -24,16 +29,17 @@ export class LoginComponent {
 
   private readonly destroyRef = inject(DestroyRef);
 
-  constructor(private readonly authService: AuthService, private readonly router: Router) {
-  }
+  constructor(
+    private readonly authService: AuthService,
+    private readonly router: Router,
+  ) {}
 
   protected onButtonClick(): void {
-    this.authService.login(this.formGroup.value.username, this.formGroup.value.password)
-      .pipe(
-        takeUntilDestroyed(this.destroyRef)
-      )
+    this.authService
+      .login(this.formGroup.value.username, this.formGroup.value.password)
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.router.navigate(['/']).then();
-      })
+      });
   }
 }

@@ -13,21 +13,20 @@ export class AppService {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UserService,
-  ) {
-  }
+  ) {}
 
   getVo(): Observable<AppVo> {
     const roles = [UserRole.ADMIN, UserRole.REGULAR];
 
-    return this.authService.observeCurrentUser()
-      .pipe(
-        map((user) => {
-          return {
-            canCreateUsers: user?.role === UserRole.ADMIN,
-            canLogout: !!user,
-            roles,
-          };
-        }));
+    return this.authService.observeCurrentUser().pipe(
+      map((user) => {
+        return {
+          canCreateUsers: user?.role === UserRole.ADMIN,
+          canLogout: !!user,
+          roles,
+        };
+      }),
+    );
   }
 
   logout(): void {

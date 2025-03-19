@@ -1,6 +1,18 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  signal,
+  Signal,
+} from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
@@ -14,10 +26,17 @@ import { UserListVo } from './user-list.vo';
 
 @Component({
   selector: 'app-user-list',
-  imports: [TableModule, ButtonModule, Dialog, InputTextModule, SelectButtonModule, ReactiveFormsModule],
+  imports: [
+    TableModule,
+    ButtonModule,
+    Dialog,
+    InputTextModule,
+    SelectButtonModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserListComponent {
   protected readonly vo: Signal<UserListVo | undefined>;
@@ -27,10 +46,16 @@ export class UserListComponent {
   protected readonly formGroup = new FormGroup({
     id: new FormControl<string>('', { validators: [Validators.required] }),
     // todo Add validation to check if the username already exists.
-    username: new FormControl<string>('', { validators: [Validators.required] }),
+    username: new FormControl<string>('', {
+      validators: [Validators.required],
+    }),
     // todo Add validation to check password strength.
-    password: new FormControl<string>('', { validators: [Validators.required] }),
-    role: new FormControl<UserRole>(UserRole.REGULAR,  { validators: [Validators.required] }),
+    password: new FormControl<string>('', {
+      validators: [Validators.required],
+    }),
+    role: new FormControl<UserRole>(UserRole.REGULAR, {
+      validators: [Validators.required],
+    }),
   });
 
   constructor(private readonly userListService: UserListService) {
@@ -51,10 +76,11 @@ export class UserListComponent {
 
     // todo show spinner
     // todo show error
-    this.userListService.editUser(user)
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-      ).
-    subscribe(() => { this.isDialogOpen.set(false); });
+    this.userListService
+      .editUser(user)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.isDialogOpen.set(false);
+      });
   }
 }

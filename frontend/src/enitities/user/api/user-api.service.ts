@@ -10,11 +10,10 @@ import { environment } from '../../../environments/environment';
 const apiUrl = `${environment.apiUrl}/users`;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserApiService {
-  constructor(private readonly httpClient: HttpClient) {
-  }
+  constructor(private readonly httpClient: HttpClient) {}
 
   createUser(dto: UserCreateDto): Observable<UserCreatedDto> {
     return this.httpClient.post<UserCreatedDto>(apiUrl, dto);
